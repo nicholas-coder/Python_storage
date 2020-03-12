@@ -3,14 +3,15 @@ import datetime
 import utility_files
 import tempfile
 
+def get_path(number, name):
+    """Функция возвращает путь, по которому будут созданы папки с именем и номером, которые задает пользователь"""
+    default = ("{0}" + os.environ.get("USERNAME") + "{1}").format("C:\\Users\\", "\\Desktop\\")
+    direction = (default + number + "{0}" + name + "{1}" + number + "{2}" + name).format(")", "\\", ")")
+    return direction
 
-def Path(number, name):
-    default = "C:\\Users\\" + os.environ.get("USERNAME") + "\\Desktop\\"
-    way = default + number + ")" + name + "\\" + number + ")" + name
-    return way
 
-
-def CreateFolder(data):
+def create_folder(data):
+    """Функция создает папки. Аргументом функции является путь."""
     destination = data + "_inc"
     destination1 = data + "_scr"
     print('Созданы папки по следующему пути: ')
@@ -21,7 +22,8 @@ def CreateFolder(data):
     return destination, destination1
 
 
-def MakeFiles(source_code, dest, exp):
+def make_files(source_code, dest, exp):
+    """Функция генерирует файлы, заменяет шаблонное имя на имя пользователя"""
     for objects in source_code:
         mas = objects
         now = datetime.datetime.today()
@@ -34,8 +36,9 @@ def MakeFiles(source_code, dest, exp):
         est = objects[2]
         ground = est.rfind("_")
         point = est.rfind(".")
-        file1 = open(way + exp + dest.lower() + est[ground:point] + est[point:point + 2], 'w')
+        file1 = open(direct + exp + dest.lower() + est[ground:point] + est[point:point + 2], 'w')
         mas1[3] = mas[3]
+        """Ставим дату"""
         mas1[3] += now.strftime(" %d.%m.%Y ")
         for i in mas1:
             file1.write(i)
@@ -43,7 +46,8 @@ def MakeFiles(source_code, dest, exp):
         file1.close()
 
 
-def Choice(param, codec, codeh, codecext, codehext, n, m):
+def choice_files(param, codec, codeh, codecext, codehext, n, m):
+    """Функция добавляет выбранные файлы"""
     if param == "yes" or param == "y":
         codec.append(codecext[n])
         codeh.append(codehext[m])
@@ -52,14 +56,15 @@ def Choice(param, codec, codeh, codecext, codehext, n, m):
         return codec, codeh
 
 
-def AddToSource(source_codec, source_codeh):
+def add_to_source(source_codec, source_codeh):
+    """Функция выбора создания файлов, которые идут не по умолчанию"""
     folders = {"gpio": [1, 2], "spi": [3, 1], "adc": [0, 0], "uart": [5, 3], "tim": [4, 4], "it": [2, 5]}
     for index in folders:
         par = input("Добавить " + index + "? Y/N:   ").lower()
         values = folders.get(index)
         cn = values[0]
         cm = values[1]
-        Choice(par, source_code_c, source_code_h, source_code_c_ext, source_code_h_ext, cn, cm)
+        choice_files(par, source_code_c, source_code_h, source_code_c_ext, source_code_h_ext, cn, cm)
     return source_codec, source_codeh
 
 
@@ -74,10 +79,10 @@ source_code_c_ext = [utility_files.adc_c, utility_files.gpio_c, utility_files.it
 
 place = input("введите имя: ")
 number = input("Введите номер: ")
-way = Path(number, place)
-CreateFolder(way)
+direct = get_path(number, place)
+create_folder(direct)
 inc = '_inc\\'
 scr = '_scr\\'
-cfil, hfil = AddToSource(source_code_c, source_code_h, )
-MakeFiles(hfil, place, inc)
-MakeFiles(cfil, place, scr)
+cfil, hfil = add_to_source(source_code_c, source_code_h)
+make_files(hfil, place, inc)
+make_files(cfil, place, scr)
