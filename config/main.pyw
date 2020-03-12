@@ -22,11 +22,6 @@ data_SFS = {"без ТМ": "01", "с ТМ": "02"}
 data_cks = {"Медь": "001", "Оптика": "002"}
 
 
-def choise(val, dict):
-    if val in dict:
-        print(dict[val])
-
-
 class MyWin(QtWidgets.QMainWindow):
 
     def __init__(self, parent=None):
