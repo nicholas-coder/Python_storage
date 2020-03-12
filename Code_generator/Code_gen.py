@@ -23,7 +23,7 @@ def create_folder(data):
 
 
 def make_files(source_code, dest, exp):
-    """Функция генерирует файлы, заменяет шаблонное имя на имя, выбранное пользователем"""
+    """Функция генерирует файлы, заменяет шаблонное имя на имя пользователя"""
     for objects in source_code:
         mas = objects
         now = datetime.datetime.today()
@@ -54,17 +54,21 @@ def choice_files(param, codec, codeh, codecext, codehext, n, m):
         return codec, codeh
     elif param == "no" or param == "n":
         return codec, codeh
+    else:
+        raise ValueError("Строго Y/N!")
 
 
 def add_to_source(source_codec, source_codeh):
     """Функция выбора создания файлов, которые идут не по умолчанию"""
     folders = {"gpio": [1, 2], "spi": [3, 1], "adc": [0, 0], "uart": [5, 3], "tim": [4, 4], "it": [2, 5]}
     for index in folders:
+        print("Добавить папки из списка: gpio, spi, adc, uart, tim, it")
         par = input("Добавить " + index + "? Y/N:   ").lower()
         values = folders.get(index)
         cn = values[0]
         cm = values[1]
         choice_files(par, source_code_c, source_code_h, source_code_c_ext, source_code_h_ext, cn, cm)
+
     return source_codec, source_codeh
 
 
@@ -78,7 +82,11 @@ source_code_c_ext = [utility_files.adc_c, utility_files.gpio_c, utility_files.it
                      utility_files.tim_c, utility_files.uart_c]
 
 place = input("введите имя: ")
+if not place.isalpha():
+    raise ValueError("Имя должно состоять из букв!")
 number = input("Введите номер: ")
+if not number.isdigit():
+    raise ValueError("Номер должен быть целочисленным значением!")
 direct = get_path(number, place)
 create_folder(direct)
 inc = '_inc\\'
