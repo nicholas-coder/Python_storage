@@ -23,7 +23,7 @@ def create_folder(data):
 
 
 def make_files(source_code, dest, exp):
-    """Функция генерирует файлы, заменяет шаблонное имя на имя выбранное пользователем"""
+    """Функция генерирует файлы, заменяет шаблонное имя на имя, выбранное пользователем"""
     for objects in source_code:
         mas = objects
         now = datetime.datetime.today()
