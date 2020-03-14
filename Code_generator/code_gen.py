@@ -30,8 +30,7 @@ def make_files(source_code, dest, exp):
         path = os.getcwd()
         mas1 = []
         for element in mas:
-            element = element.replace("new_utility", dest.lower())
-            element = element.replace("NEW_UTILITY", dest.upper())
+            element = element.replace("new_utility", dest.lower()).replace("NEW_UTILITY", dest.upper())   
             mas1.append(element)
         est = objects[2]
         ground = est.rfind("_")
