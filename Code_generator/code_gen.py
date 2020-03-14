@@ -25,14 +25,14 @@ def make_files(source_code, dest, exp):
     for objects in source_code:
         raw_objects = objects
         now = datetime.datetime.today()
-        reduced_objects = []  # FIXME: Оч плохое называние.
+        reduced_objects = []
 
         for element in raw_objects:
             element = element.replace("new_utility", dest.lower())
             element = element.replace("NEW_UTILITY", dest.upper())  # FIXME: element.replace().replace()
             reduced_objects.append(element)
 
-        symbols = objects[2]  # FIXME Вообще ж не понятно по названию переменной.
+        symbols = objects[2]
         ground = symbols.rfind("_")
         point = symbols.rfind(".")
         file1 = open(direct + exp + dest.lower() + symbols[ground:point] + symbols[point:point + 2], 'w')
@@ -56,7 +56,7 @@ def choice_files(param, codec, codeh, codecext, codehext, n, m):
         return codec, codeh
     elif param == "no" or param == "n":
         return codec, codeh
-    else:  # FIXME: Нафиг элс этот? Кажется можно без него для конца функции
+    else:
         raise ValueError("Строго Y/N!")
 
         
@@ -67,7 +67,7 @@ def add_to_source(source_codec, source_codeh):
     for index in folders:
         par = input("Добавить " + index + "? Y/N:   ").lower()
         values = folders.get(index)
-        c_code = values[0]  # FIXME: Названия топ (нет)
+        c_code = values[0]  
         h_code = values[1]
         choice_files(par, source_code_c, source_code_h, source_code_c_ext, source_code_h_ext, c_code, h_code)
     return source_codec, source_codeh
