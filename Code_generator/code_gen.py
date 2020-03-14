@@ -28,8 +28,7 @@ def make_files(source_code, dest, exp):
         reduced_objects = []
 
         for element in raw_objects:
-            element = element.replace("new_utility", dest.lower())
-            element = element.replace("NEW_UTILITY", dest.upper())  # FIXME: element.replace().replace()
+            element = element.replace("new_utility", dest.lower()).replace("NEW_UTILITY", dest.upper()) 
             reduced_objects.append(element)
 
         symbols = objects[2]
