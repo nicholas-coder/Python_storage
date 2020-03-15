@@ -23,28 +23,27 @@ def create_folder(data):
 
 def make_files(source_code, dest, exp):
     """Функция генерирует файлы, заменяет шаблонное имя на имя пользователя"""
-    for objects in source_code:
-        raw_objects = objects
+    for line in source_code:
         now = datetime.datetime.today()
-        reduced_objects = []
+        reduced_obj = []
 
-        for element in raw_objects:
+        for element in line:
             element = element.replace("new_utility", dest.lower()).replace("NEW_UTILITY", dest.upper())
-            reduced_objects.append(element)
+            reduced_obj.append(element)
 
-        symbols = objects[2]
+        symbols = line[2]
         ground = symbols.rfind("_")
         point = symbols.rfind(".")
-        file1 = open(direct + exp + dest.lower() + symbols[ground:point] + symbols[point:point + 2], 'w')
-        reduced_objects[3] = raw_objects[3]
+        template_file = open(direct + exp + dest.lower() + symbols[ground:point] + symbols[point:point + 2], 'w')
+        reduced_obj[3] = line[3]
 
         """Ставим дату"""
-        reduced_objects[3] += now.strftime(" %d.%m.%Y ")
+        reduced_obj[3] += now.strftime(" %d.%m.%Y ")
 
-        for i in reduced_objects:
-            file1.write(i)
-            file1.write("\n")
-        file1.close()
+        for line in reduced_obj:
+            template_file.write(line)
+            template_file.write("\n")
+        template_file.close()
 
 
 def choice_files(param, codec, codeh, codecext, codehext, n, m):
@@ -56,8 +55,6 @@ def choice_files(param, codec, codeh, codecext, codehext, n, m):
         return codec, codeh
     elif param == "no" or param == "n":
         return codec, codeh
-    else:
-        raise ValueError("Строго Y/N!")
 
 
 def add_to_source(source_codec, source_codeh):
