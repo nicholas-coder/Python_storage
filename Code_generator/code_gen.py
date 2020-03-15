@@ -114,6 +114,6 @@ create_folder(direct)
 inc = '_inc\\'
 scr = '_scr\\'
 
-cfil, hfil = add_to_source(source_code_c, source_code_h)
-make_files(hfil, place, inc)
-make_files(cfil, place, scr)
+c_file, h_file = add_to_source(source_code_c, source_code_h)
+make_files(h_file, place, inc)
+make_files(c_file, place, scr)
